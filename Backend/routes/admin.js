@@ -26,8 +26,9 @@ router.get('/dashboard', adminAuth, async (req, res) => {
     const totalRegistrations = await Registration.countDocuments();
 
     const recentRegistrations = await Registration.find()
-      .populate('user', 'name rollNumber')
+      .populate('captain', 'name rollNumber')
       .populate('tournament', 'name sport')
+      .populate('team', 'name')
       .sort({ createdAt: -1 })
       .limit(10);
 

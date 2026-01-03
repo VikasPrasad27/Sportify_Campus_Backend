@@ -12,6 +12,7 @@ const registrationRoutes = require("./routes/registration")
 const slotRoutes = require("./routes/slot")
 const adminRoutes = require("./routes/admin")
 const previousWinnersRoutes = require("./routes/previous-winners") // Added route import
+const notificationRoutes = require("./routes/notification")
 
 dotenv.config()
 
@@ -27,7 +28,12 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://VikasP:Iamvikas%40277
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('MongoDB connected successfully'))
+.then(() => {
+  console.log('MongoDB connected successfully');
+  // Initialize notification scheduler after database connection
+  const { initializeNotificationScheduler } = require("./jobs/notificationScheduler");
+  initializeNotificationScheduler();
+})
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
@@ -39,6 +45,7 @@ app.use("/api/registrations", registrationRoutes)
 app.use("/api/slots", slotRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/api/previous-winners", previousWinnersRoutes) // Registered new route
+app.use("/api/notifications", notificationRoutes)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
