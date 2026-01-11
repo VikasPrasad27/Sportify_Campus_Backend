@@ -86,7 +86,7 @@ const seedComplete = async () => {
     console.log('🚀 Starting database seeding...\n');
 
     // Connect to database
-    const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://VikasP:Iamvikas%40277@cluster0.zig110n.mongodb.net/SportifyCampus';
+    const mongoUri = process.env.MONGODB_URI;
     await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
