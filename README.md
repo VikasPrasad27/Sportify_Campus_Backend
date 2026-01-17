@@ -119,8 +119,9 @@
 - **Dev Server**: Nodemon
 - **Environment**: dotenv
 
-### Cloud Storage
+### Cloud Storage & Testing
 - **Cloudinaray** : Sdk
+- **Postman** : Api Endpoints Testing
 
 ---
 
