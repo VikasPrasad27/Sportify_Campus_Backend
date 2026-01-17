@@ -7,7 +7,6 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-4.18-blue.svg)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-7.5-brightgreen.svg)](https://www.mongodb.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 *Streamline your college sports tournaments with automated management, notifications, and comprehensive tracking*
 
@@ -110,7 +109,6 @@
 - **Validation**: express-validator
 
 ### Frontend
-- **Framework**: Next.js 15
 - **UI Library**: React 19
 - **Styling**: Tailwind CSS
 - **Components**: shadcn/ui
@@ -120,6 +118,9 @@
 - **Package Manager**: npm
 - **Dev Server**: Nodemon
 - **Environment**: dotenv
+
+### Cloud Storage
+- **Cloudinaray** : Sdk
 
 ---
 
