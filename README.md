@@ -506,6 +506,10 @@ You can customize the seed script by editing `Backend/scripts/seed-complete.js`:
 
 Use Postman or any API client to test endpoints. See `Backend/postman-testing-guide.md` for detailed testing instructions.
 
+### Automated Testing
+
+Used Jest and Super Jest for automated testing create several scripts to run tests
+
 ### Testing Flow
 
 1. **Authentication**
