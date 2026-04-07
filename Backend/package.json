@@ -6,9 +6,17 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test jest",
     "seed": "node scripts/seed-complete.js",
     "seed:reset": "node scripts/seed-complete.js"
+  },
+  "jest": {
+    "testMatch": [
+      "**/scripts/tests/**/*.test.js"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/scripts/tests/setupTests.js"
+    ]
   },
   "keywords": [
     "sports",
@@ -29,6 +37,7 @@
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "fs": "^0.0.1-security",
+    "jest": "^30.3.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.544.0",
     "mongoose": "^7.5.0",
@@ -38,9 +47,12 @@
     "nodemailer": "^6.9.8",
     "path": "^0.12.7",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "superjest": "^0.4.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^7.2.2"
   }
 }

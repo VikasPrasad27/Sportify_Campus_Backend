@@ -10,8 +10,9 @@ const teamRoutes = require("./routes/team")
 const tournamentRoutes = require("./routes/tournament")
 const registrationRoutes = require("./routes/registration")
 const slotRoutes = require("./routes/slot")
+const fixturesRoutes = require("./routes/fixtures")
 const adminRoutes = require("./routes/admin")
-const previousWinnersRoutes = require("./routes/previous-winners") // Added route import
+const previousWinnersRoutes = require("./routes/previous-winner") // Added route import
 const notificationRoutes = require("./routes/notification")
 
 dotenv.config()
@@ -23,26 +24,28 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI , {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('MongoDB connected successfully');
-  // Initialize notification scheduler after database connection
-  const { initializeNotificationScheduler } = require("./jobs/notificationScheduler");
-  initializeNotificationScheduler();
-})
-.catch(err => console.error('MongoDB connection error:', err));
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+    .then(() => {
+      console.log('MongoDB connected successfully');
+      const { initializeNotificationScheduler } = require("./jobs/notificationScheduler");
+      initializeNotificationScheduler();
+    })
+    .catch(err => console.error('MongoDB connection error:', err));
+}
 
 // Routes
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/teams", teamRoutes)
 app.use("/api/tournaments", tournamentRoutes)
+app.use("/api/events", tournamentRoutes)
 app.use("/api/registrations", registrationRoutes)
 app.use("/api/slots", slotRoutes)
+app.use("/api/fixtures", fixturesRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/api/previous-winners", previousWinnersRoutes) // Registered new route
 app.use("/api/notifications", notificationRoutes)
@@ -59,6 +62,12 @@ app.use("*", (req, res) => {
 })
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
+}
+
+module.exports = app
+module.exports.close = () => mongoose.connection.close()

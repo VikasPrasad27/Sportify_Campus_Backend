@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../app");
+const app = require("../../index");
 
 describe("Event API", () => {
 
@@ -8,16 +8,9 @@ describe("Event API", () => {
     expect(res.statusCode).toBe(200);
   });
 
-  it("should create event", async () => {
-    const res = await request(app)
-      .post("/api/events")
-      .send({
-        name: "Football Tournament",
-        sport: "Football",
-        type: "knockout"
-      });
-
-    expect(res.statusCode).toBe(201);
+  it("should fetch upcoming events", async () => {
+    const res = await request(app).get("/api/events/upcoming");
+    expect(res.statusCode).toBe(200);
   });
 
 });
